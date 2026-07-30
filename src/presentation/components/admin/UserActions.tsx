@@ -20,7 +20,7 @@ export function UserActions({
   const [loading, setLoading] = useState(false);
 
   if (isSelf) {
-    return <span className="text-[11px] text-smoke">(tu cuenta)</span>;
+    return <span className="text-[11px] text-clay">(tu cuenta)</span>;
   }
 
   async function patch(data: { role?: string; active?: boolean }) {
@@ -58,16 +58,16 @@ export function UserActions({
       <button
         onClick={toggleRole}
         disabled={loading}
-        className="text-[11px] uppercase tracking-wide2 text-smoke transition-colors hover:text-gold disabled:opacity-40"
+        className="text-[11px] uppercase tracking-wide2 text-clay transition-colors hover:text-terra disabled:opacity-40"
       >
         {role === 'ADMIN' ? 'Quitar admin' : 'Hacer admin'}
       </button>
-      <span className="text-ivory/20">|</span>
+      <span className="text-ink/20">|</span>
       <button
         onClick={toggleActive}
         disabled={loading}
         className={`text-[11px] uppercase tracking-wide2 transition-colors disabled:opacity-40 ${
-          active ? 'text-red-400 hover:text-red-300' : 'text-green-400 hover:text-green-300'
+          active ? 'text-red-800 hover:text-red-300' : 'text-green-400 hover:text-green-300'
         }`}
       >
         {active ? 'Desactivar' : 'Activar'}

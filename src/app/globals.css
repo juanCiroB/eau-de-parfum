@@ -4,29 +4,150 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   html {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   body {
-    @apply bg-noir font-sans text-ivory antialiased;
+    @apply bg-bone font-sans text-ink antialiased;
+    font-feature-settings: 'ss01' 1, 'cv01' 1;
+  }
+
+  /* Cifras siempre tabulares: precios y stock no deben bailar entre filas. */
+  .font-mono,
+  table,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   ::selection {
-    @apply bg-gold/30 text-ivory;
+    @apply bg-terra/20 text-ink;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-noir;
+    @apply outline-none ring-2 ring-terra ring-offset-2 ring-offset-bone;
+  }
+
+  /* Barra de scroll discreta, en la familia cálida del papel. */
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bone-200;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-[3px] border-solid border-bone-200 bg-clay-light;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-clay;
+  }
+}
+
+@layer components {
+  /**
+   * Grano de película. Rompe la planitud digital del papel liso.
+   * Fijo y sin eventos de puntero: nunca repinta con el scroll.
+   */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.038;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /**
+   * Tabla con la barra de scroll horizontal ARRIBA, no abajo: se ve sin tener
+   * que llegar al final de la tabla. Doble giro en X, sin JavaScript.
+   */
+  .scroll-x-top {
+    overflow-x: auto;
+    transform: rotateX(180deg);
+  }
+
+  .scroll-x-top > * {
+    transform: rotateX(180deg);
+  }
+
+  /** Enlace de salto al contenido, visible solo con teclado. */
+  .skip-link {
+    @apply sr-only;
+  }
+
+  .skip-link:focus {
+    @apply not-sr-only fixed left-4 top-4 z-overlay rounded-full bg-ink px-5 py-3 text-xs uppercase tracking-wide2 text-bone;
   }
 }
 
 @layer utilities {
-  .gold-rule {
-    @apply h-px w-16 bg-gold;
+  /** Filete corto de acento, sustituye a la regla dorada anterior. */
+  .rule-terra {
+    @apply h-px w-14 bg-terra;
+  }
+
+  /** Subrayado que crece desde la izquierda al pasar el cursor. */
+  .underline-grow {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .underline-grow:hover {
+    background-size: 100% 1px;
+  }
+
+  /** Halo ambiental cálido para dar profundidad a fondos planos. */
+  .halo-warm {
+    background-image: radial-gradient(
+        60% 55% at 18% 12%,
+        rgba(140, 61, 46, 0.09) 0%,
+        transparent 62%
+      ),
+      radial-gradient(50% 45% at 88% 78%, rgba(180, 170, 156, 0.16) 0%, transparent 60%);
+  }
+
+  .halo-dark {
+    background-image: radial-gradient(
+        55% 50% at 12% 8%,
+        rgba(168, 91, 73, 0.16) 0%,
+        transparent 60%
+      ),
+      radial-gradient(45% 40% at 92% 88%, rgba(247, 244, 238, 0.06) 0%, transparent 58%);
   }
 }

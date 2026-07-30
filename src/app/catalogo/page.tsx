@@ -27,14 +27,14 @@ export default async function CatalogPage({
   ]);
 
   return (
-    <div className="py-14 lg:py-20">
+    <div className="py-16 lg:py-24">
       <Container>
-        <header className="mb-12 max-w-2xl">
-          <Eyebrow className="mb-4">Catálogo</Eyebrow>
-          <h1 className="font-display text-4xl font-light leading-tight text-ivory sm:text-5xl">
-            Toda la colección
+        <header className="mb-14 max-w-2xl">
+          <Eyebrow className="mb-6">Catálogo</Eyebrow>
+          <h1 className="font-display text-[2.5rem] font-light leading-[1.02] tracking-tighter2 text-ink sm:text-[3.5rem]">
+            Toda la <span className="italic text-terra">colección</span>
           </h1>
-          <p className="mt-4 text-sm leading-relaxed text-smoke-light">
+          <p className="mt-5 max-w-prose2 text-[0.9375rem] leading-relaxed text-clay-dark">
             Una selección curada de fragancias nuevas y selladas. Filtra por
             categoría, busca por nombre o marca y ordena según tu preferencia.
           </p>

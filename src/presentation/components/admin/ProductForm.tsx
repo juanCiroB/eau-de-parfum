@@ -12,9 +12,9 @@ const CATEGORIES = [
 const CONCENTRATIONS = ['Eau de Parfum', 'Parfum', 'Eau de Toilette', 'Extrait'];
 
 const input =
-  'w-full border border-ivory/20 bg-noir-800 px-4 py-2.5 text-sm text-ivory placeholder:text-smoke focus:border-gold focus:outline-none';
+  'w-full rounded-full bg-bone-200/70 px-5 py-2.5 text-sm text-ink ring-1 ring-inset ring-ink/[0.08] transition-all duration-300 placeholder:text-clay focus:bg-bone-100 focus:outline-none focus:ring-2 focus:ring-terra';
 
-const labelCls = 'mb-1.5 block text-[11px] uppercase tracking-wide2 text-smoke';
+const labelCls = 'mb-2 block text-[10px] uppercase tracking-wide2 text-clay-dark';
 
 export interface ProductInitial {
   id: string;
@@ -96,7 +96,7 @@ export function ProductForm({ initialProduct }: { initialProduct?: ProductInitia
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
       {error && (
-        <div className="border border-red-500/30 bg-red-950/20 px-4 py-3 text-sm text-red-400">
+        <div className="border border-red-500/30 bg-red-950/20 px-4 py-3 text-sm text-red-800">
           {error}
         </div>
       )}
@@ -145,7 +145,7 @@ export function ProductForm({ initialProduct }: { initialProduct?: ProductInitia
       <div>
         <label className={labelCls}>URL de la imagen</label>
         <input type="url" className={input} required value={form.imageUrl} onChange={(e) => set('imageUrl', e.target.value)} placeholder="https://fimgs.net/mdimg/perfume/375x500.12345.jpg" />
-        <p className="mt-1 text-[11px] text-smoke">Pega la URL directa de la imagen del producto</p>
+        <p className="mt-1 text-[11px] text-clay">Pega la URL directa de la imagen del producto</p>
       </div>
 
       <div>
@@ -165,17 +165,17 @@ export function ProductForm({ initialProduct }: { initialProduct?: ProductInitia
       </div>
 
       <div className="space-y-3">
-        <p className={labelCls}>Pirámide olfativa <span className="normal-case text-smoke">(separadas por comas)</span></p>
+        <p className={labelCls}>Pirámide olfativa <span className="normal-case text-clay">(separadas por comas)</span></p>
         <div>
-          <label className="mb-1 block text-[11px] text-smoke">Notas de salida (top)</label>
+          <label className="mb-1 block text-[11px] text-clay">Notas de salida (top)</label>
           <input className={input} value={form.notesTop} onChange={(e) => set('notesTop', e.target.value)} placeholder="Bergamota, Pimienta, Limón" />
         </div>
         <div>
-          <label className="mb-1 block text-[11px] text-smoke">Notas de corazón (heart)</label>
+          <label className="mb-1 block text-[11px] text-clay">Notas de corazón (heart)</label>
           <input className={input} value={form.notesHeart} onChange={(e) => set('notesHeart', e.target.value)} placeholder="Jazmín, Rosa, Iris" />
         </div>
         <div>
-          <label className="mb-1 block text-[11px] text-smoke">Notas de fondo (base)</label>
+          <label className="mb-1 block text-[11px] text-clay">Notas de fondo (base)</label>
           <input className={input} value={form.notesBase} onChange={(e) => set('notesBase', e.target.value)} placeholder="Sándalo, Vetiver, Almizcle" />
         </div>
       </div>
@@ -186,22 +186,22 @@ export function ProductForm({ initialProduct }: { initialProduct?: ProductInitia
           type="checkbox"
           checked={form.featured}
           onChange={(e) => set('featured', e.target.checked)}
-          className="h-4 w-4 accent-gold"
+          className="h-4 w-4 accent-terra"
         />
-        <label htmlFor="featured" className="text-sm text-smoke-light">
+        <label htmlFor="featured" className="text-sm text-clay-dark">
           Mostrar como producto destacado en la página principal
         </label>
       </div>
 
-      <div className="flex items-center gap-4 border-t border-ivory/10 pt-6">
+      <div className="flex items-center gap-4 border-t border-ink/[0.08] pt-6">
         <button
           type="submit"
           disabled={loading}
-          className="bg-gold px-8 py-3 text-xs uppercase tracking-wide2 text-noir transition-colors hover:bg-gold-light disabled:opacity-60"
+          className="rounded-full bg-ink px-8 py-3 text-[11px] uppercase tracking-wide2 text-bone shadow-lift transition-all duration-500 ease-haptic hover:bg-ink-700 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-45"
         >
           {loading ? 'Guardando…' : isEdit ? 'Guardar cambios' : 'Agregar perfume'}
         </button>
-        <a href="/admin/productos" className="text-sm text-smoke hover:text-gold transition-colors">
+        <a href="/admin/productos" className="text-sm text-clay hover:text-terra transition-colors">
           Cancelar
         </a>
       </div>

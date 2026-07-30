@@ -10,11 +10,22 @@ function formatPrice(n: number) {
   return `$ ${n.toLocaleString('es-CO')}`;
 }
 
-function Bar({ value, max, color = 'bg-gold' }: { value: number; max: number; color?: string }) {
+/**
+ * Barra de proporción. Carril tintado con el papel, relleno redondeado y
+ * un mínimo visible para que un valor pequeño no desaparezca del todo.
+ */
+function Bar({ value, max, color = 'bg-terra' }: { value: number; max: number; color?: string }) {
   const pct = max > 0 ? Math.round((value / max) * 100) : 0;
   return (
-    <div className="mt-1.5 h-1.5 w-full bg-ivory/10">
-      <div className={`h-full ${color}`} style={{ width: `${pct}%` }} />
+    <div
+      role="img"
+      aria-label={`${pct}% del total`}
+      className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-ink/[0.07]"
+    >
+      <div
+        className={`h-full rounded-full ${color}`}
+        style={{ width: pct > 0 ? `max(3px, ${pct}%)` : '0%' }}
+      />
     </div>
   );
 }
@@ -60,35 +71,38 @@ export default async function AdminReportesPage() {
   const maxStatus = Math.max(...orderStatusGroups.map((g) => g._count.id), 1);
 
   const STAT_CARDS = [
-    { label: 'Productos en catálogo', value: String(totalProducts), color: 'text-gold' },
-    { label: 'Clientes registrados', value: String(totalCustomers), color: 'text-ivory' },
-    { label: 'Pedidos totales', value: String(totalOrders), color: 'text-ivory' },
-    { label: 'Ingresos totales', value: formatPrice(totalRevenue), color: 'text-green-400' }
+    { label: 'Productos en catálogo', value: String(totalProducts), color: 'text-terra' },
+    { label: 'Clientes registrados', value: String(totalCustomers), color: 'text-ink' },
+    { label: 'Pedidos totales', value: String(totalOrders), color: 'text-ink' },
+    { label: 'Ingresos totales', value: formatPrice(totalRevenue), color: 'text-emerald-700' }
   ];
 
   return (
     <div className="py-10 lg:py-14">
       <Container>
-        <h1 className="mb-8 font-display text-3xl font-light text-ivory">Reportes</h1>
+        <h1 className="mb-8 font-display text-[2rem] font-light tracking-tighter2 text-ink sm:text-4xl">Reportes</h1>
 
-        <div className="mb-10 grid gap-px overflow-hidden border border-ivory/10 bg-ivory/5 sm:grid-cols-4">
+        <dl className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {STAT_CARDS.map((card) => (
-            <div key={card.label} className="bg-noir-800 px-6 py-5">
-              <p className="text-[11px] uppercase tracking-wide2 text-smoke">{card.label}</p>
-              <p className={`mt-2 font-display text-3xl font-light ${card.color}`}>{card.value}</p>
+            <div
+              key={card.label}
+              className="rounded-shell bg-bone-200/50 px-6 py-6 ring-1 ring-inset ring-ink/[0.07]"
+            >
+              <dt className="text-[10px] uppercase tracking-wide2 text-clay-dark">{card.label}</dt>
+              <dd className={`mt-3 font-mono text-2xl ${card.color}`}>{card.value}</dd>
             </div>
           ))}
-        </div>
+        </dl>
 
         <div className="grid gap-8 lg:grid-cols-3">
-          <div className="border border-ivory/10 p-6">
-            <h2 className="mb-4 text-[11px] uppercase tracking-wide2 text-smoke">Productos por categoría</h2>
+          <div className="rounded-shell p-6 ring-1 ring-inset ring-ink/[0.07]">
+            <h2 className="mb-4 text-[11px] uppercase tracking-wide2 text-clay">Productos por categoría</h2>
             <div className="space-y-4">
               {categoryGroups.map((g) => (
                 <div key={g.categorySlug}>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-ivory">{CATEGORY_LABELS[g.categorySlug] ?? g.categorySlug}</span>
-                    <span className="text-sm text-gold">{g._count.id}</span>
+                    <span className="text-sm text-ink">{CATEGORY_LABELS[g.categorySlug] ?? g.categorySlug}</span>
+                    <span className="text-sm text-terra">{g._count.id}</span>
                   </div>
                   <Bar value={g._count.id} max={maxCategory} />
                 </div>
@@ -96,44 +110,44 @@ export default async function AdminReportesPage() {
             </div>
           </div>
 
-          <div className="border border-ivory/10 p-6">
-            <h2 className="mb-4 text-[11px] uppercase tracking-wide2 text-smoke">Estado del stock</h2>
+          <div className="rounded-shell p-6 ring-1 ring-inset ring-ink/[0.07]">
+            <h2 className="mb-4 text-[11px] uppercase tracking-wide2 text-clay">Estado del stock</h2>
             <div className="space-y-4">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-ivory">En stock</span>
-                  <span className="text-sm text-green-400">{inStock}</span>
+                  <span className="text-sm text-ink">En stock</span>
+                  <span className="text-sm text-emerald-700">{inStock}</span>
                 </div>
-                <Bar value={inStock} max={totalProducts} color="bg-green-400" />
+                <Bar value={inStock} max={totalProducts} color="bg-emerald-700" />
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-ivory">Stock bajo (≤5)</span>
-                  <span className="text-sm text-amber-400">{lowStock}</span>
+                  <span className="text-sm text-ink">Stock bajo (≤5)</span>
+                  <span className="text-sm text-amber-700">{lowStock}</span>
                 </div>
-                <Bar value={lowStock} max={totalProducts} color="bg-amber-400" />
+                <Bar value={lowStock} max={totalProducts} color="bg-amber-700" />
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-ivory">Sin stock</span>
-                  <span className="text-sm text-red-400">{outOfStock}</span>
+                  <span className="text-sm text-ink">Sin stock</span>
+                  <span className="text-sm text-red-800">{outOfStock}</span>
                 </div>
-                <Bar value={outOfStock} max={totalProducts} color="bg-red-400" />
+                <Bar value={outOfStock} max={totalProducts} color="bg-red-800" />
               </div>
             </div>
           </div>
 
-          <div className="border border-ivory/10 p-6">
-            <h2 className="mb-4 text-[11px] uppercase tracking-wide2 text-smoke">Pedidos por estado</h2>
+          <div className="rounded-shell p-6 ring-1 ring-inset ring-ink/[0.07]">
+            <h2 className="mb-4 text-[11px] uppercase tracking-wide2 text-clay">Pedidos por estado</h2>
             {orderStatusGroups.length === 0 ? (
-              <p className="text-sm text-smoke">Sin pedidos aún</p>
+              <p className="text-sm text-clay">Sin pedidos aún</p>
             ) : (
               <div className="space-y-4">
                 {orderStatusGroups.map((g) => (
                   <div key={g.status}>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-ivory">{statusLabel(g.status)}</span>
-                      <span className="text-sm text-gold">{g._count.id}</span>
+                      <span className="text-sm text-ink">{statusLabel(g.status)}</span>
+                      <span className="text-sm text-terra">{g._count.id}</span>
                     </div>
                     <Bar value={g._count.id} max={maxStatus} color={statusBarColor(g.status)} />
                   </div>
@@ -144,13 +158,13 @@ export default async function AdminReportesPage() {
         </div>
 
         {recentOrders.length > 0 && (
-          <div className="mt-10 border border-ivory/10">
-            <div className="border-b border-ivory/10 px-6 py-4">
-              <h2 className="text-[11px] uppercase tracking-wide2 text-smoke">Últimos 5 pedidos</h2>
+          <div className="mt-10 overflow-hidden rounded-shell ring-1 ring-inset ring-ink/[0.07]">
+            <div className="border-b border-ink/[0.08] px-6 py-4">
+              <h2 className="text-[11px] uppercase tracking-wide2 text-clay">Últimos 5 pedidos</h2>
             </div>
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-ivory/5 text-left text-[11px] uppercase tracking-wide2 text-smoke">
+                <tr className="border-b border-ink/[0.05] text-left text-[11px] uppercase tracking-wide2 text-clay">
                   <th className="px-6 py-3">ID</th>
                   <th className="px-6 py-3">Cliente</th>
                   <th className="px-6 py-3">Total</th>
@@ -161,13 +175,13 @@ export default async function AdminReportesPage() {
                 {recentOrders.map((o) => {
                   const addr = JSON.parse(o.address) as { fullName: string };
                   return (
-                    <tr key={o.id} className="border-b border-ivory/5">
-                      <td className="px-6 py-3 font-mono text-[11px] text-smoke">
+                    <tr key={o.id} className="border-b border-ink/[0.05]">
+                      <td className="px-6 py-3 font-mono text-[11px] text-clay">
                         #{o.id.slice(-8).toUpperCase()}
                       </td>
-                      <td className="px-6 py-3 text-ivory">{addr.fullName}</td>
-                      <td className="px-6 py-3 text-gold">{formatPrice(o.total)}</td>
-                      <td className="px-6 py-3 text-smoke">{statusLabel(o.status)}</td>
+                      <td className="px-6 py-3 text-ink">{addr.fullName}</td>
+                      <td className="px-6 py-3 text-terra">{formatPrice(o.total)}</td>
+                      <td className="px-6 py-3 text-clay">{statusLabel(o.status)}</td>
                     </tr>
                   );
                 })}

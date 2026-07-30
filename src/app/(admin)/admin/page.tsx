@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container } from '@presentation/components/ui/Container';
 import { Eyebrow } from '@presentation/components/ui/Eyebrow';
+import { Alert } from '@presentation/components/ui/Alert';
 import { prisma } from '@lib/prisma';
 
 export const metadata: Metadata = { title: 'Panel Admin', robots: { index: false } };
@@ -53,28 +54,45 @@ export default async function AdminPage() {
     <div className="py-16 lg:py-20">
       <Container>
         <div className="max-w-2xl">
-          <Eyebrow className="mb-4">Interno</Eyebrow>
-          <h1 className="font-display text-4xl font-light text-ivory sm:text-5xl">
+          <Eyebrow className="mb-6">Interno</Eyebrow>
+          <h1 className="font-display text-[2.5rem] font-light leading-[1.02] tracking-tighter2 text-ink sm:text-[3.25rem]">
             Panel administrativo
           </h1>
           {lowStock > 0 && (
-            <div className="mt-4 border border-gold/30 bg-gold/5 px-4 py-3 text-sm text-gold">
-              ⚠ {lowStock} producto{lowStock !== 1 ? 's' : ''} con stock ≤ 5 unidades.{' '}
-              <Link href="/admin/productos" className="underline underline-offset-4">
-                Revisar
-              </Link>
+            <div className="mt-6">
+              <Alert tone="error">
+                {lowStock} producto{lowStock !== 1 ? 's' : ''} con stock ≤ 5 unidades.{' '}
+                <Link href="/admin/productos" className="underline underline-offset-4">
+                  Revisar
+                </Link>
+              </Alert>
             </div>
           )}
         </div>
 
-        <div className="mt-10 grid gap-px overflow-hidden border border-ivory/10 bg-ivory/5 sm:grid-cols-2">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
           {MODULES.map((m) => (
-            <Link key={m.name} href={m.href} className="group block bg-noir-800 p-7 transition-colors hover:bg-noir-700">
-              <h2 className="font-display text-xl text-ivory">{m.name}</h2>
-              <p className="mt-2 text-sm text-smoke-light">{m.detail}</p>
-              <p className="mt-4 text-[11px] uppercase tracking-wide2 text-gold transition-colors group-hover:text-gold-light">
-                {m.stat} → Gestionar
-              </p>
+            <Link
+              key={m.name}
+              href={m.href}
+              className="group block rounded-shell bg-bone-200/60 p-8 ring-1 ring-inset ring-ink/[0.07] transition-all duration-500 ease-haptic hover:-translate-y-0.5 hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terra"
+            >
+              <div className="flex items-baseline justify-between gap-4">
+                <h2 className="font-display text-xl font-light tracking-tighter2 text-ink">
+                  {m.name}
+                </h2>
+                <span className="font-mono text-[11px] text-terra">{m.stat}</span>
+              </div>
+              <p className="mt-2.5 text-sm leading-relaxed text-clay-dark">{m.detail}</p>
+              <span className="mt-6 inline-flex items-center gap-2 text-[10px] uppercase tracking-wide2 text-clay-dark transition-colors duration-300 group-hover:text-terra">
+                Gestionar
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-500 ease-haptic group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </span>
             </Link>
           ))}
         </div>

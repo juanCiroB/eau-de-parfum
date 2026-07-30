@@ -40,24 +40,24 @@ export default async function AdminProductsPage() {
       <Container>
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="font-display text-3xl font-light text-ivory">Productos</h1>
-            <p className="mt-1 text-sm text-smoke">{products.length} en catálogo</p>
+            <h1 className="font-display text-[2rem] font-light tracking-tighter2 text-ink sm:text-4xl">Productos</h1>
+            <p className="mt-1 text-sm text-clay">{products.length} en catálogo</p>
           </div>
           <Link
             href="/admin/productos/nuevo"
-            className="bg-gold px-6 py-2.5 text-xs uppercase tracking-wide2 text-noir transition-colors hover:bg-gold-light"
+            className="rounded-full bg-ink px-6 py-2.5 text-[11px] uppercase tracking-wide2 text-bone shadow-lift transition-all duration-500 ease-haptic hover:bg-ink-700 active:scale-[0.98]"
           >
             + Agregar
           </Link>
         </div>
 
         {products.length === 0 ? (
-          <p className="text-smoke">No hay productos. Agrega el primero.</p>
+          <p className="text-clay">No hay productos. Agrega el primero.</p>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="scroll-x-top">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-ivory/10 text-left text-[11px] uppercase tracking-wide2 text-smoke">
+                <tr className="border-b border-ink/[0.08] text-left text-[11px] uppercase tracking-wide2 text-clay">
                   <th className="pb-3 pr-6">Nombre</th>
                   <th className="pb-3 pr-6">Marca</th>
                   <th className="pb-3 pr-6">Categoría</th>
@@ -69,33 +69,39 @@ export default async function AdminProductsPage() {
               </thead>
               <tbody>
                 {products.map((p) => (
-                  <tr key={p.id} className="border-b border-ivory/5 hover:bg-noir-800/50">
+                  <tr key={p.id} className="border-b border-ink/[0.05] hover:bg-ink/[0.03]">
                     <td className="py-3.5 pr-6">
                       <Link
                         href={`/producto/${p.slug}`}
                         target="_blank"
-                        className="font-medium text-ivory hover:text-gold transition-colors"
+                        className="font-medium text-ink hover:text-terra transition-colors"
                       >
                         {p.name}
                       </Link>
-                      <div className="text-[11px] text-smoke">{p.volumeMl} ml · {p.concentration}</div>
+                      <div className="text-[11px] text-clay">{p.volumeMl} ml · {p.concentration}</div>
                     </td>
-                    <td className="py-3.5 pr-6 text-smoke-light">{p.brand}</td>
-                    <td className="py-3.5 pr-6 text-smoke-light">
+                    <td className="py-3.5 pr-6 text-clay-dark">{p.brand}</td>
+                    <td className="py-3.5 pr-6 text-clay-dark">
                       {CATEGORY_LABELS[p.categorySlug] ?? p.categorySlug}
                     </td>
-                    <td className="py-3.5 pr-6 text-smoke-light">{formatPrice(p.price)}</td>
+                    <td className="py-3.5 pr-6 text-clay-dark">{formatPrice(p.price)}</td>
                     <td className="py-3.5 pr-6">
                       <StockEditor id={p.id} initialStock={p.stock} />
                     </td>
-                    <td className="py-3.5 pr-6 text-smoke">
-                      {p.featured ? '★' : '—'}
+                    <td className="py-3.5 pr-6 text-clay">
+                      {p.featured ? (
+                        <span className="rounded-full bg-terra/10 px-2.5 py-1 text-[10px] uppercase tracking-wide2 text-terra">
+                          Sí
+                        </span>
+                      ) : (
+                        <span className="text-clay-light">—</span>
+                      )}
                     </td>
                     <td className="py-3.5">
                       <div className="flex items-center justify-end gap-4">
                         <Link
                           href={`/admin/productos/${p.id}/editar`}
-                          className="text-[11px] uppercase tracking-wide2 text-smoke transition-colors hover:text-gold"
+                          className="text-[11px] uppercase tracking-wide2 text-clay transition-colors hover:text-terra"
                         >
                           Editar
                         </Link>

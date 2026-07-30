@@ -1,9 +1,15 @@
+/**
+ * Estados de pedido y su expresión visual.
+ *
+ * Los tonos son semánticos (no decorativos): viven aparte del acento de marca
+ * y se eligen en el rango 700-800 para leerse sobre papel sin estridencia.
+ */
 export const ORDER_STATUSES = [
-  { value: 'PENDING',   label: 'Pendiente', color: 'text-amber-400', barColor: 'bg-amber-400' },
-  { value: 'PACKED',    label: 'Empacado',  color: 'text-blue-400',  barColor: 'bg-blue-400' },
-  { value: 'SHIPPED',   label: 'Enviado',   color: 'text-sky-400',   barColor: 'bg-sky-400' },
-  { value: 'DELIVERED', label: 'Entregado', color: 'text-green-400', barColor: 'bg-green-400' },
-  { value: 'CANCELLED', label: 'Cancelado', color: 'text-red-400',   barColor: 'bg-red-400' }
+  { value: 'PENDING', label: 'Pendiente', color: 'text-amber-700', barColor: 'bg-amber-700' },
+  { value: 'PACKED', label: 'Empacado', color: 'text-indigo-700', barColor: 'bg-indigo-700' },
+  { value: 'SHIPPED', label: 'Enviado', color: 'text-sky-700', barColor: 'bg-sky-700' },
+  { value: 'DELIVERED', label: 'Entregado', color: 'text-emerald-700', barColor: 'bg-emerald-700' },
+  { value: 'CANCELLED', label: 'Cancelado', color: 'text-red-800', barColor: 'bg-red-800' }
 ] as const;
 
 export function statusLabel(value: string): string {
@@ -11,9 +17,9 @@ export function statusLabel(value: string): string {
 }
 
 export function statusColor(value: string): string {
-  return ORDER_STATUSES.find((s) => s.value === value)?.color ?? 'text-smoke';
+  return ORDER_STATUSES.find((s) => s.value === value)?.color ?? 'text-clay';
 }
 
 export function statusBarColor(value: string): string {
-  return ORDER_STATUSES.find((s) => s.value === value)?.barColor ?? 'bg-gold';
+  return ORDER_STATUSES.find((s) => s.value === value)?.barColor ?? 'bg-clay';
 }

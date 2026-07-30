@@ -1,117 +1,136 @@
 import Link from 'next/link';
 import { Container } from '@presentation/components/ui/Container';
 import { Button } from '@presentation/components/ui/Button';
+import { Eyebrow } from '@presentation/components/ui/Eyebrow';
 import { ImageWithFallback } from '@presentation/components/ui/ImageWithFallback';
-import { ROUTES, SITE } from '@shared/constants';
+import { Reveal } from '@presentation/components/ui/Reveal';
+import { ROUTES, SITE, CATEGORY_SLUGS } from '@shared/constants';
 
 const HERO_MAIN =
   'https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=1200&q=85';
-const HERO_SIDE_1 =
-  'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=700&q=80';
-const HERO_SIDE_2 =
-  'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=700&q=80';
-const HERO_SIDE_3 =
-  'https://images.unsplash.com/photo-1563170351-be82bc888aa4?auto=format&fit=crop&w=700&q=80';
+
+/** Accesos de categoría: conservan el destino real del catálogo. */
+const TILES = [
+  {
+    label: 'Para ella',
+    href: ROUTES.categoryFilter(CATEGORY_SLUGS.designer),
+    src: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=700&q=80',
+    alt: 'Frasco de perfume femenino sobre fondo claro'
+  },
+  {
+    label: 'Nicho',
+    href: ROUTES.categoryFilter(CATEGORY_SLUGS.niche),
+    src: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=700&q=80',
+    alt: 'Fragancia de nicho en frasco facetado'
+  },
+  {
+    label: 'Para él',
+    href: ROUTES.categoryFilter(CATEGORY_SLUGS.arabic),
+    src: 'https://images.unsplash.com/photo-1563170351-be82bc888aa4?auto=format&fit=crop&w=700&q=80',
+    alt: 'Frasco de perfume masculino sobre superficie oscura'
+  }
+];
+
+const STATS = [
+  { value: '200+', label: 'Fragancias en catálogo' },
+  { value: '100%', label: 'Originales selladas' },
+  { value: '5.400', label: 'Pedidos entregados' },
+  { value: '24 h', label: 'Despacho desde Medellín' }
+];
 
 export function Hero() {
   return (
-    <section className="bg-noir text-ivory overflow-hidden">
-      {/* Mosaico principal */}
-      <div className="grid h-[85vh] min-h-[560px] grid-cols-1 lg:grid-cols-[3fr_2fr]">
-        {/* Imagen grande con overlay de texto */}
-        <div className="relative overflow-hidden">
-          <ImageWithFallback
-            src={HERO_MAIN}
-            alt="Fragancias de lujo"
-            className="h-full w-full object-cover object-center transition-transform duration-[8s] ease-out hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-noir/80 via-noir/40 to-transparent" />
-
-          {/* Contenido sobre la imagen */}
-          <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-14">
-            <span className="text-[11px] uppercase tracking-luxe text-gold">
-              Perfumería · {SITE.country}
-            </span>
-            <h1 className="mt-4 font-display text-5xl font-light leading-[1.05] sm:text-6xl lg:text-7xl xl:text-8xl">
+    <section className="relative overflow-hidden bg-bone halo-warm">
+      <Container>
+        <div className="grid items-center gap-14 py-16 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:py-24">
+          {/* Bloque tipográfico sobre papel — sin foto de fondo ni degradado. */}
+          <Reveal>
+            <Eyebrow>Perfumería · {SITE.country}</Eyebrow>
+            <h1 className="mt-7 font-display text-[3.25rem] font-light leading-[0.94] tracking-tighter2 text-ink sm:text-[4.5rem] lg:text-[5.25rem]">
               El arte de
               <br />
-              <span className="text-gold">la fragancia</span>
+              la <span className="italic text-terra">fragancia</span>
             </h1>
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-smoke-light">
-              {SITE.tagline} Originales sellados — Chanel, Dior, Creed, Tom Ford y más.
+            <p className="mt-7 max-w-prose2 text-base leading-relaxed text-clay-dark">
+              {SITE.tagline} Chanel, Dior, Creed, Tom Ford y casas árabes, siempre nuevas y
+              selladas.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
               <Link href={ROUTES.catalog}>
-                <Button variant="gold">Explorar catálogo</Button>
+                <Button variant="primary" withArrow>
+                  Explorar catálogo
+                </Button>
               </Link>
               <Link
                 href={ROUTES.catalog}
-                className="text-[11px] uppercase tracking-wide2 text-ivory underline-offset-4 hover:text-gold hover:underline"
+                className="underline-grow text-[11px] uppercase tracking-wide2 text-clay-dark transition-colors duration-300 hover:text-terra"
               >
-                Ver novedades →
+                Ver novedades
               </Link>
             </div>
-          </div>
-        </div>
+          </Reveal>
 
-        {/* Columna derecha: 3 imágenes apiladas */}
-        <div className="hidden lg:grid lg:grid-rows-3">
-          <div className="relative overflow-hidden">
-            <ImageWithFallback
-              src={HERO_SIDE_1}
-              alt="Perfume femenino"
-              className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-noir/30" />
-            <span className="absolute bottom-3 left-4 text-[10px] uppercase tracking-luxe text-ivory/80">
-              Para Ella
-            </span>
-          </div>
-          <div className="relative overflow-hidden">
-            <ImageWithFallback
-              src={HERO_SIDE_2}
-              alt="Baccarat Rouge 540"
-              className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-noir/20" />
-            <span className="absolute bottom-3 left-4 text-[10px] uppercase tracking-luxe text-ivory/80">
-              Nicho
-            </span>
-          </div>
-          <div className="relative overflow-hidden">
-            <ImageWithFallback
-              src={HERO_SIDE_3}
-              alt="Perfume masculino"
-              className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-noir/25" />
-            <span className="absolute bottom-3 left-4 text-[10px] uppercase tracking-luxe text-ivory/80">
-              Para Él
-            </span>
-          </div>
-        </div>
-      </div>
+          {/* Composición de imágenes: pieza principal + accesos de categoría. */}
+          <Reveal delay={120} className="grid grid-cols-[1.6fr_1fr] gap-3 sm:gap-4">
+            <div className="group relative overflow-hidden rounded-shell bg-bone-200 ring-1 ring-inset ring-ink/[0.06]">
+              <ImageWithFallback
+                src={HERO_MAIN}
+                alt="Composición de frascos de perfume sobre superficie cálida"
+                priority
+                className="h-full min-h-[380px] w-full object-cover transition-transform duration-[1200ms] ease-haptic group-hover:scale-[1.04] lg:min-h-[540px]"
+              />
+            </div>
 
-      {/* Strip de stats */}
-      <div className="border-t border-ivory/10 bg-noir-800">
+            <ul className="grid grid-rows-3 gap-3 sm:gap-4">
+              {TILES.map((tile, i) => (
+                <li key={tile.label}>
+                  <Link
+                    href={tile.href}
+                    className={cnTile(i)}
+                    aria-label={`Ver categoría ${tile.label}`}
+                  >
+                    <ImageWithFallback
+                      src={tile.src}
+                      alt={tile.alt}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-haptic group-hover/tile:scale-105"
+                    />
+                    <span className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+                    <span className="absolute bottom-3 left-3 rounded-full bg-bone/90 px-2.5 py-1 text-[10px] uppercase tracking-wide2 text-ink backdrop-blur-sm transition-transform duration-500 ease-haptic group-hover/tile:-translate-y-0.5">
+                      {tile.label}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </Container>
+
+      {/* Cifras del negocio, en tabular. */}
+      <div className="border-y border-ink/[0.08] bg-bone-200/70">
         <Container>
-          <div className="grid grid-cols-2 divide-x divide-ivory/10 py-5 sm:grid-cols-4">
-            {[
-              { value: '+200', label: 'Fragancias' },
-              { value: '100%', label: 'Originales selladas' },
-              { value: '+5.000', label: 'Clientes felices' },
-              { value: '24 h', label: 'Despacho rápido' },
-            ].map((s) => (
-              <div key={s.label} className="px-6 py-2 text-center first:pl-0 last:pr-0">
-                <p className="font-display text-2xl font-light text-gold">{s.value}</p>
-                <p className="mt-1 text-[11px] uppercase tracking-wide2 text-smoke-light">
-                  {s.label}
-                </p>
-              </div>
+          <dl className="grid grid-cols-2 gap-y-8 py-9 sm:grid-cols-4">
+            {STATS.map((s, i) => (
+              <Reveal key={s.label} delay={i * 70} className="px-2 text-center sm:px-6">
+                <dt className="sr-only">{s.label}</dt>
+                <dd>
+                  <span className="block font-mono text-2xl text-ink">{s.value}</span>
+                  <span className="mt-2 block text-[10px] uppercase tracking-wide2 text-clay-dark">
+                    {s.label}
+                  </span>
+                </dd>
+              </Reveal>
             ))}
-          </div>
+          </dl>
         </Container>
       </div>
     </section>
   );
+}
+
+/** El acceso central se desplaza para romper la rejilla perfecta. */
+function cnTile(index: number) {
+  const base =
+    'group/tile relative block h-full min-h-[120px] overflow-hidden rounded-core ring-1 ring-inset ring-ink/[0.06] transition-transform duration-700 ease-haptic hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terra';
+  return index === 1 ? `${base} lg:translate-x-3` : base;
 }

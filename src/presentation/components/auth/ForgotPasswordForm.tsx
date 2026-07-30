@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { Alert } from '@presentation/components/ui/Alert';
+import { formStyles } from '@presentation/components/ui/form';
 
 export function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
@@ -32,11 +34,11 @@ export function ForgotPasswordForm() {
 
   if (sent) {
     return (
-      <div className="mt-10 border border-gold/30 bg-gold/5 px-6 py-8 text-center">
-        <p className="text-sm text-ivory">
+      <div className="mt-10 rounded-shell bg-bone-200/70 px-7 py-9 text-center ring-1 ring-inset ring-ink/[0.06]">
+        <p className="text-sm leading-relaxed text-ink">
           Si existe una cuenta con ese correo, recibirás el enlace para restablecer tu contraseña.
         </p>
-        <p className="mt-3 text-xs text-smoke">
+        <p className="mt-3 text-xs text-clay">
           En modo desarrollo, el enlace aparece en la consola del servidor.
         </p>
       </div>
@@ -44,15 +46,11 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-10 space-y-4" noValidate>
-      {error && (
-        <div className="border border-red-500/30 bg-red-950/20 px-4 py-3 text-sm text-red-400">
-          {error}
-        </div>
-      )}
+    <form onSubmit={handleSubmit} className="mt-10 space-y-5" noValidate>
+      {error && <Alert tone="error">{error}</Alert>}
 
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-xs uppercase tracking-wide2 text-smoke">
+        <label htmlFor="email" className={formStyles.label}>
           Correo electrónico
         </label>
         <input
@@ -63,15 +61,11 @@ export function ForgotPasswordForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="tu@correo.com"
-          className="w-full border border-ivory/20 bg-noir-800 px-4 py-3 text-sm text-ivory placeholder:text-smoke focus:border-gold focus:outline-none"
+          className={formStyles.input}
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-gold py-3 text-xs uppercase tracking-wide2 text-noir transition-colors hover:bg-gold-light disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading} className={formStyles.submit}>
         {loading ? 'Enviando…' : 'Enviar enlace de recuperación'}
       </button>
     </form>

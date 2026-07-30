@@ -19,23 +19,23 @@ export default function LoginPage({
   const emailVerified = searchParams['verified'] === '1';
 
   return (
-    <div className="py-20 lg:py-28">
+    <div className="halo-warm py-20 lg:py-28">
       <Container className="max-w-md">
         <div className="text-center">
-          <Eyebrow className="mb-4">Cuenta</Eyebrow>
-          <h1 className="font-display text-4xl font-light text-ivory">Iniciar sesión</h1>
-          <p className="mt-3 text-sm text-smoke-light">
+          <Eyebrow className="mb-6">Cuenta</Eyebrow>
+          <h1 className="font-display text-[2.25rem] font-light leading-tight tracking-tighter2 text-ink sm:text-[2.75rem]">Iniciar sesión</h1>
+          <p className="mt-3 text-sm leading-relaxed text-clay-dark">
             Accede a tu cuenta para ver tus pedidos y favoritos.
           </p>
         </div>
 
         <LoginForm resetSuccess={resetSuccess} emailVerified={emailVerified} />
 
-        <p className="mt-8 text-center text-sm text-smoke-light">
+        <p className="mt-8 text-center text-sm leading-relaxed text-clay-dark">
           ¿No tienes cuenta?{' '}
           <Link
             href={ROUTES.register}
-            className="text-gold underline underline-offset-4 hover:text-gold-light"
+            className="text-terra underline underline-offset-4 transition-colors duration-300 hover:text-terra-dark"
           >
             Regístrate
           </Link>

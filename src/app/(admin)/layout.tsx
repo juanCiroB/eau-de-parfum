@@ -21,21 +21,25 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="min-h-screen">
-      <div className="border-b border-ivory/10 bg-noir-800">
+      {/* Barra de administración: cinta de tinta que separa el panel de la tienda. */}
+      <div className="bg-ink text-bone">
         <Container>
           <div className="flex h-12 items-center gap-6 overflow-x-auto">
-            <span className="shrink-0 text-[11px] uppercase tracking-wide2 text-gold">Admin</span>
-            <span className="h-3 w-px shrink-0 bg-ivory/20" />
-            {ADMIN_NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="shrink-0 text-[11px] uppercase tracking-wide2 text-smoke-light transition-colors hover:text-gold"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <span className="ml-auto shrink-0 text-[11px] text-smoke">
+            <span className="shrink-0 rounded-full px-2.5 py-0.5 text-[10px] uppercase tracking-luxe text-terra-light ring-1 ring-inset ring-terra-light/30">
+              Admin
+            </span>
+            <nav className="flex shrink-0 items-center gap-6" aria-label="Navegación del panel">
+              {ADMIN_NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="underline-grow shrink-0 text-[10px] uppercase tracking-wide2 text-bone/60 transition-colors duration-300 hover:text-bone"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+            <span className="ml-auto shrink-0 whitespace-nowrap text-[10px] text-bone/40">
               {session.user.name}
             </span>
           </div>

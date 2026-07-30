@@ -36,15 +36,22 @@ export default async function ProductPage({ params }: { params: { slug: string }
   const related = await catalog.relatedProducts(params.slug, 4);
 
   return (
-    <div className="py-10 lg:py-16">
+    <div className="py-12 lg:py-16">
       <Container>
         {/* Migas de pan */}
-        <nav className="mb-8 flex items-center gap-2 text-[11px] uppercase tracking-wide2 text-smoke">
-          <Link href={ROUTES.home} className="hover:text-gold transition-colors">Inicio</Link>
-          <span>/</span>
-          <Link href={ROUTES.catalog} className="hover:text-gold transition-colors">Catálogo</Link>
-          <span>/</span>
-          <span className="text-smoke-light">{product.name}</span>
+        <nav
+          aria-label="Ruta de navegación"
+          className="mb-10 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-wide2 text-clay"
+        >
+          <Link href={ROUTES.home} className="underline-grow transition-colors duration-300 hover:text-ink">
+            Inicio
+          </Link>
+          <span aria-hidden="true">/</span>
+          <Link href={ROUTES.catalog} className="underline-grow transition-colors duration-300 hover:text-ink">
+            Catálogo
+          </Link>
+          <span aria-hidden="true">/</span>
+          <span className="text-clay-dark">{product.name}</span>
         </nav>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -53,38 +60,47 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
           {/* Información */}
           <div className="lg:py-4">
-            <Eyebrow className="mb-3">{product.categoryName}</Eyebrow>
-            <p className="text-sm uppercase tracking-wide2 text-smoke-light">{product.brand}</p>
-            <h1 className="mt-2 font-display text-4xl font-light leading-tight text-ivory sm:text-5xl">
+            <Eyebrow className="mb-5">{product.categoryName}</Eyebrow>
+            <p className="text-[11px] uppercase tracking-luxe text-clay-dark">{product.brand}</p>
+            <h1 className="mt-2.5 font-display text-[2.5rem] font-light leading-[1.02] tracking-tighter2 text-ink sm:text-[3.25rem]">
               {product.name}
             </h1>
 
-            <div className="mt-5 flex items-center gap-4">
-              <span className="font-display text-3xl text-ivory">{product.priceLabel}</span>
-              <span className="text-xs uppercase tracking-wide2 text-smoke">
+            <div className="mt-6 flex flex-wrap items-baseline gap-x-5 gap-y-2">
+              <span className="font-mono text-2xl text-ink">{product.priceLabel}</span>
+              <span className="text-[11px] uppercase tracking-wide2 text-clay">
                 {product.volumeMl} ml · {product.concentration}
               </span>
             </div>
 
-            <p className="mt-2 text-xs uppercase tracking-wide2">
+            {/* Disponibilidad con punto de estado, no solo color de texto. */}
+            <p className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase tracking-wide2">
+              <span
+                aria-hidden="true"
+                className={`h-1.5 w-1.5 rounded-full ${
+                  product.inStock ? 'bg-terra' : 'bg-clay-light'
+                }`}
+              />
               {product.inStock ? (
-                <span className="text-gold">Disponible · Nuevo y sellado</span>
+                <span className="text-terra">Disponible · Nuevo y sellado</span>
               ) : (
-                <span className="text-smoke">Agotado temporalmente</span>
+                <span className="text-clay">Agotado temporalmente</span>
               )}
             </p>
 
-            <div className="my-7 h-px bg-ivory/10" />
+            <div className="my-8 h-px bg-ink/[0.09]" />
 
-            <p className="text-sm leading-relaxed text-smoke-light">{product.description}</p>
+            <p className="max-w-prose2 text-[0.9375rem] leading-relaxed text-clay-dark">
+              {product.description}
+            </p>
 
-            <div className="mt-8">
+            <div className="mt-9">
               <AddToCartButton product={product} />
             </div>
 
             {/* Pirámide olfativa */}
-            <div className="mt-12 bg-noir-800 p-7 border border-ivory/8">
-              <Eyebrow className="mb-5">Pirámide olfativa</Eyebrow>
+            <div className="mt-14 rounded-shell bg-bone-200/70 p-8 ring-1 ring-inset ring-ink/[0.06]">
+              <Eyebrow className="mb-7">Pirámide olfativa</Eyebrow>
               <NotesPyramid notes={product.notes} />
             </div>
           </div>
@@ -92,14 +108,14 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
         {/* Relacionados */}
         {related.length > 0 && (
-          <section className="mt-24">
-            <div className="mb-10 flex items-end justify-between">
-              <h2 className="font-display text-2xl font-light text-ivory sm:text-3xl">
+          <section className="mt-28">
+            <div className="mb-12 flex items-end justify-between gap-6">
+              <h2 className="font-display text-[1.75rem] font-light tracking-tighter2 text-ink sm:text-4xl">
                 También podría gustarle
               </h2>
               <Link
                 href={ROUTES.catalog}
-                className="text-[11px] uppercase tracking-wide2 text-smoke-light hover:text-gold transition-colors"
+                className="underline-grow shrink-0 text-[10px] uppercase tracking-wide2 text-clay-dark transition-colors duration-300 hover:text-terra"
               >
                 Ver todo
               </Link>

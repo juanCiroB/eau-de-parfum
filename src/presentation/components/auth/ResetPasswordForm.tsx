@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@shared/constants';
+import { Alert } from '@presentation/components/ui/Alert';
+import { formStyles } from '@presentation/components/ui/form';
 
 export function ResetPasswordForm({ token }: { token: string }) {
   const router = useRouter();
@@ -16,7 +18,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
     setError('');
 
     if (password !== confirm) {
-      setError('Las contraseñas no coinciden');
+      setError('Las contraseñas no coinciden.');
       return;
     }
 
@@ -40,18 +42,11 @@ export function ResetPasswordForm({ token }: { token: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-10 space-y-4" noValidate>
-      {error && (
-        <div className="border border-red-500/30 bg-red-950/20 px-4 py-3 text-sm text-red-400">
-          {error}
-        </div>
-      )}
+    <form onSubmit={handleSubmit} className="mt-10 space-y-5" noValidate>
+      {error && <Alert tone="error">{error}</Alert>}
 
       <div>
-        <label
-          htmlFor="password"
-          className="mb-1.5 block text-xs uppercase tracking-wide2 text-smoke"
-        >
+        <label htmlFor="password" className={formStyles.label}>
           Nueva contraseña
         </label>
         <input
@@ -63,15 +58,12 @@ export function ResetPasswordForm({ token }: { token: string }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Mínimo 8 caracteres"
-          className="w-full border border-ivory/20 bg-noir-800 px-4 py-3 text-sm text-ivory placeholder:text-smoke focus:border-gold focus:outline-none"
+          className={formStyles.input}
         />
       </div>
 
       <div>
-        <label
-          htmlFor="confirm"
-          className="mb-1.5 block text-xs uppercase tracking-wide2 text-smoke"
-        >
+        <label htmlFor="confirm" className={formStyles.label}>
           Confirmar contraseña
         </label>
         <input
@@ -83,15 +75,11 @@ export function ResetPasswordForm({ token }: { token: string }) {
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
           placeholder="Repite la contraseña"
-          className="w-full border border-ivory/20 bg-noir-800 px-4 py-3 text-sm text-ivory placeholder:text-smoke focus:border-gold focus:outline-none"
+          className={formStyles.input}
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-gold py-3 text-xs uppercase tracking-wide2 text-noir transition-colors hover:bg-gold-light disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading} className={formStyles.submit}>
         {loading ? 'Guardando…' : 'Cambiar contraseña'}
       </button>
     </form>

@@ -43,12 +43,12 @@ export default async function AdminOrdersPage() {
     <div className="py-10 lg:py-14">
       <Container>
         <div className="mb-8">
-          <h1 className="font-display text-3xl font-light text-ivory">Pedidos</h1>
-          <p className="mt-1 text-sm text-smoke">{orders.length} pedido{orders.length !== 1 ? 's' : ''} en total</p>
+          <h1 className="font-display text-[2rem] font-light tracking-tighter2 text-ink sm:text-4xl">Pedidos</h1>
+          <p className="mt-1 text-sm text-clay">{orders.length} pedido{orders.length !== 1 ? 's' : ''} en total</p>
         </div>
 
         {orders.length === 0 ? (
-          <p className="text-smoke">Aún no hay pedidos registrados.</p>
+          <p className="text-clay">Aún no hay pedidos registrados.</p>
         ) : (
           <div className="space-y-4">
             {orders.map((order) => {
@@ -56,11 +56,11 @@ export default async function AdminOrdersPage() {
               const address = JSON.parse(order.address) as OrderAddress;
 
               return (
-                <div key={order.id} className="border border-ivory/10 bg-noir-800">
-                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ivory/10 px-5 py-3">
+                <div key={order.id} className="rounded-shell bg-bone-200/50 ring-1 ring-inset ring-ink/[0.07]">
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/[0.08] px-5 py-3">
                     <div className="flex items-center gap-4">
-                      <span className="font-mono text-[11px] text-smoke">#{order.id.slice(-8).toUpperCase()}</span>
-                      <span className="text-[11px] text-smoke">{formatDate(order.createdAt)}</span>
+                      <span className="font-mono text-[11px] text-clay">#{order.id.slice(-8).toUpperCase()}</span>
+                      <span className="text-[11px] text-clay">{formatDate(order.createdAt)}</span>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className={`text-xs font-medium ${statusColor(order.status)}`}>
@@ -72,36 +72,36 @@ export default async function AdminOrdersPage() {
 
                   <div className="grid gap-4 px-5 py-4 sm:grid-cols-3">
                     <div>
-                      <p className="mb-1 text-[11px] uppercase tracking-wide2 text-smoke">Cliente</p>
+                      <p className="mb-1 text-[11px] uppercase tracking-wide2 text-clay">Cliente</p>
                       {order.user ? (
                         <>
-                          <p className="text-sm text-ivory">{order.user.fullName}</p>
-                          <p className="text-xs text-smoke">{order.user.email}</p>
+                          <p className="text-sm text-ink">{order.user.fullName}</p>
+                          <p className="text-xs text-clay">{order.user.email}</p>
                         </>
                       ) : (
                         <>
-                          <p className="text-sm text-ivory">{address.fullName}</p>
-                          <p className="text-xs text-smoke">Sin cuenta</p>
+                          <p className="text-sm text-ink">{address.fullName}</p>
+                          <p className="text-xs text-clay">Sin cuenta</p>
                         </>
                       )}
                     </div>
 
                     <div>
-                      <p className="mb-1 text-[11px] uppercase tracking-wide2 text-smoke">Envío</p>
-                      <p className="text-sm text-ivory">{address.line1}</p>
-                      <p className="text-xs text-smoke">{address.city}, {address.department}</p>
-                      <p className="text-xs text-smoke">{address.phone}</p>
+                      <p className="mb-1 text-[11px] uppercase tracking-wide2 text-clay">Envío</p>
+                      <p className="text-sm text-ink">{address.line1}</p>
+                      <p className="text-xs text-clay">{address.city}, {address.department}</p>
+                      <p className="text-xs text-clay">{address.phone}</p>
                     </div>
 
                     <div>
-                      <p className="mb-1 text-[11px] uppercase tracking-wide2 text-smoke">Productos</p>
+                      <p className="mb-1 text-[11px] uppercase tracking-wide2 text-clay">Productos</p>
                       {items.map((item, i) => (
-                        <p key={i} className="text-sm text-ivory">
+                        <p key={i} className="text-sm text-ink">
                           {item.quantity}× {item.name}
-                          <span className="ml-2 text-xs text-smoke">{formatPrice(item.price)}</span>
+                          <span className="ml-2 text-xs text-clay">{formatPrice(item.price)}</span>
                         </p>
                       ))}
-                      <p className="mt-2 text-sm font-medium text-gold">Total: {formatPrice(order.total)}</p>
+                      <p className="mt-2 text-sm font-medium text-terra">Total: {formatPrice(order.total)}</p>
                     </div>
                   </div>
                 </div>

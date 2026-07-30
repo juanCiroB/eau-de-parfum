@@ -17,8 +17,8 @@ export default function CartPage() {
     <div className="py-14 lg:py-20">
       <Container>
         <header className="mb-12">
-          <Eyebrow className="mb-4">Tu selección</Eyebrow>
-          <h1 className="font-display text-4xl font-light leading-tight text-ivory sm:text-5xl">
+          <Eyebrow className="mb-6">Tu selección</Eyebrow>
+          <h1 className="font-display text-[2.5rem] font-light leading-[1.02] tracking-tighter2 text-ink sm:text-[3.5rem]">
             Carrito de compras
           </h1>
         </header>

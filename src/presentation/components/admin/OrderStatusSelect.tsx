@@ -31,10 +31,10 @@ export function OrderStatusSelect({
       value={status}
       onChange={(e) => { void handleChange(e.target.value); }}
       disabled={saving}
-      className={`border border-ivory/10 bg-noir-800 px-2 py-1 text-xs focus:border-gold focus:outline-none disabled:opacity-50 ${current?.color ?? 'text-smoke'}`}
+      className={`rounded-shell bg-bone-200/50 ring-1 ring-inset ring-ink/[0.07] px-2 py-1 text-xs focus:border-terra focus:outline-none disabled:opacity-50 ${current?.color ?? 'text-clay'}`}
     >
       {ORDER_STATUSES.map((s) => (
-        <option key={s.value} value={s.value} className="bg-noir-800 text-ivory">
+        <option key={s.value} value={s.value} className="bg-bone-200/60 text-ink">
           {s.label}
         </option>
       ))}

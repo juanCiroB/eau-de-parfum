@@ -2,7 +2,11 @@ import Link from 'next/link';
 import { ROUTES, SITE } from '@shared/constants';
 import { cn } from '@shared/utils/cn';
 
-/** Wordmark de la marca. La tipografía ES el logo (sin imagen). */
+/**
+ * Wordmark. La tipografía ES el logo: "EAU" y "PARFUM" en versal display,
+ * "DE" en itálica para romper la uniformidad. El filete de acento crece al
+ * pasar el cursor.
+ */
 export function Logo({ className, inverted = false }: { className?: string; inverted?: boolean }) {
   return (
     <Link
@@ -12,13 +16,16 @@ export function Logo({ className, inverted = false }: { className?: string; inve
     >
       <span
         className={cn(
-          'font-display text-xl tracking-[0.22em] sm:text-2xl',
-          inverted ? 'text-noir' : 'text-ivory'
+          'whitespace-nowrap font-display text-[0.8125rem] tracking-[0.12em] sm:text-[1.0625rem] sm:tracking-[0.2em] lg:text-xl',
+          inverted ? 'text-bone' : 'text-ink'
         )}
       >
-        EAU DE PARFUM
+        EAU <span className="italic tracking-[0.1em] text-terra">de</span> PARFUM
       </span>
-      <span className="mt-1 h-px w-8 bg-gold transition-all duration-500 group-hover:w-14" />
+      <span
+        aria-hidden="true"
+        className="mt-1.5 h-px w-6 bg-terra transition-all duration-700 ease-haptic group-hover:w-16"
+      />
     </Link>
   );
 }

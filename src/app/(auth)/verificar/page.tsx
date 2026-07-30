@@ -41,24 +41,24 @@ function VerifyContent() {
 
   return (
     <div className="text-center">
-      <Eyebrow className="mb-4">Verificación</Eyebrow>
+      <Eyebrow className="mb-6">Verificación</Eyebrow>
 
       {status === 'loading' && (
         <>
-          <h1 className="font-display text-4xl font-light text-ivory">Verificando…</h1>
-          <p className="mt-3 text-sm text-smoke-light">Confirmando tu dirección de correo.</p>
+          <h1 className="font-display text-[2.25rem] font-light leading-tight tracking-tighter2 text-ink sm:text-[2.75rem]">Verificando…</h1>
+          <p className="mt-3 text-sm leading-relaxed text-clay-dark">Confirmando tu dirección de correo.</p>
         </>
       )}
 
       {status === 'success' && (
         <>
-          <h1 className="font-display text-4xl font-light text-ivory">¡Correo confirmado!</h1>
-          <p className="mt-3 text-sm text-smoke-light">
+          <h1 className="font-display text-[2.25rem] font-light leading-tight tracking-tighter2 text-ink sm:text-[2.75rem]">¡Correo confirmado!</h1>
+          <p className="mt-3 text-sm leading-relaxed text-clay-dark">
             Tu cuenta está activa. Serás redirigido al inicio de sesión en unos segundos…
           </p>
           <Link
             href={ROUTES.login}
-            className="mt-8 inline-block text-sm text-gold underline underline-offset-4 hover:text-gold-light"
+            className="mt-8 inline-block text-sm text-terra underline underline-offset-4 transition-colors duration-300 hover:text-terra-dark"
           >
             Iniciar sesión ahora
           </Link>
@@ -67,11 +67,11 @@ function VerifyContent() {
 
       {status === 'error' && (
         <>
-          <h1 className="font-display text-4xl font-light text-ivory">Enlace inválido</h1>
-          <p className="mt-3 text-sm text-smoke-light">{errorMsg}</p>
+          <h1 className="font-display text-[2.25rem] font-light leading-tight tracking-tighter2 text-ink sm:text-[2.75rem]">Enlace inválido</h1>
+          <p className="mt-3 text-sm leading-relaxed text-clay-dark">{errorMsg}</p>
           <Link
             href={ROUTES.register}
-            className="mt-8 inline-block text-sm text-gold underline underline-offset-4 hover:text-gold-light"
+            className="mt-8 inline-block text-sm text-terra underline underline-offset-4 transition-colors duration-300 hover:text-terra-dark"
           >
             Volver al registro
           </Link>
@@ -83,12 +83,12 @@ function VerifyContent() {
 
 export default function VerifyEmailPage() {
   return (
-    <div className="py-20 lg:py-28">
+    <div className="halo-warm py-20 lg:py-28">
       <Container className="max-w-md">
         <Suspense fallback={
           <div className="text-center">
-            <Eyebrow className="mb-4">Verificación</Eyebrow>
-            <h1 className="font-display text-4xl font-light text-ivory">Cargando…</h1>
+            <Eyebrow className="mb-6">Verificación</Eyebrow>
+            <h1 className="font-display text-[2.25rem] font-light leading-tight tracking-tighter2 text-ink sm:text-[2.75rem]">Cargando…</h1>
           </div>
         }>
           <VerifyContent />

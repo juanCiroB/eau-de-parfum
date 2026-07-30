@@ -4,17 +4,20 @@ import { useState } from 'react';
 import { cn } from '@shared/utils/cn';
 
 /**
- * Imagen con degradado de respaldo si la URL falla. Mantiene la estética aun
- * sin conexión a las imágenes de demostración.
+ * Imagen con respaldo si la URL falla: un lienzo de papel con el monograma,
+ * para que un hueco nunca rompa la composición.
  */
 export function ImageWithFallback({
   src,
   alt,
-  className
+  className,
+  priority = false
 }: {
   src: string;
   alt: string;
   className?: string;
+  /** Desactiva la carga diferida en imágenes visibles al entrar. */
+  priority?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
 
@@ -22,13 +25,13 @@ export function ImageWithFallback({
     return (
       <div
         className={cn(
-          'flex items-center justify-center bg-gradient-to-br from-noir-700 via-noir-800 to-noir text-gold/40',
+          'flex items-center justify-center bg-bone-200 halo-warm text-clay',
           className
         )}
         aria-label={alt}
         role="img"
       >
-        <span className="font-display text-sm tracking-luxe">EDP</span>
+        <span className="font-display text-xs italic tracking-[0.3em]">edp</span>
       </div>
     );
   }
@@ -38,7 +41,8 @@ export function ImageWithFallback({
     <img
       src={src}
       alt={alt}
-      loading="lazy"
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
       onError={() => setFailed(true)}
       className={className}
     />
