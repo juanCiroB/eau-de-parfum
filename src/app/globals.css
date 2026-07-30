@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-noir font-sans text-ivory antialiased;
+  }
+
+  ::selection {
+    @apply bg-gold/30 text-ivory;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-noir;
+  }
+}
+
+@layer utilities {
+  .gold-rule {
+    @apply h-px w-16 bg-gold;
+  }
+}
